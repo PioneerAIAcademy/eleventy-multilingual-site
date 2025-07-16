@@ -1,0 +1,23 @@
+{
+  "title": {
+    "en": "Multilingual Documentation Site",
+    "es": "Sitio de Documentación Multilingüe"
+  },
+  "description": {
+    "en": "A sample multilingual documentation site built with Eleventy",
+    "es": "Un sitio de documentación multilingüe de ejemplo construido con Eleventy"
+  },
+  "languages": [
+    {
+      "code": "en",
+      "name": "English",
+      "dir": "ltr"
+    },
+    {
+      "code": "es",
+      "name": "Español",
+      "dir": "ltr"
+    }
+  ],
+  "defaultLanguage": "en"
+}

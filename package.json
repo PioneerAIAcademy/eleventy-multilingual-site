@@ -1,0 +1,17 @@
+{
+  "name": "eleventy-multilingual-site",
+  "version": "1.0.0",
+  "description": "Multilingual Eleventy site with English and Spanish",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "keywords": ["eleventy", "multilingual", "i18n"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "markdown-it": "^13.0.1"
+  }
+}

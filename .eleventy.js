@@ -1,0 +1,53 @@
+module.exports = function(eleventyConfig) {
+  // Copy static assets
+  eleventyConfig.addPassthroughCopy("src/images");
+  eleventyConfig.addPassthroughCopy("src/css");
+  eleventyConfig.addPassthroughCopy("src/js");
+  eleventyConfig.addPassthroughCopy("src/index.html");
+  eleventyConfig.addPassthroughCopy("src/404.html");
+
+  // Collections for different languages
+  eleventyConfig.addCollection("pages_en", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/content/pages/en/**/*.md");
+  });
+
+  eleventyConfig.addCollection("pages_es", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/content/pages/es/**/*.md");
+  });
+
+  // Header collections
+  eleventyConfig.addCollection("header_en", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/content/header/en/*.md");
+  });
+
+  eleventyConfig.addCollection("header_es", function(collectionApi) {
+    return collectionApi.getFilteredByGlob("src/content/header/es/*.md");
+  });
+
+  // Universal filter to get page by slug in a specific language
+  eleventyConfig.addFilter("getPageBySlug", function(collection, slug, lang) {
+    return collection.find(page => page.data.slug === slug && page.data.lang === lang);
+  });
+
+  // Get localized URL
+  eleventyConfig.addFilter("localizedUrl", function(slug, lang) {
+    return `/${lang}/${slug}/`;
+  });
+
+  // Get alternate language URL
+  eleventyConfig.addFilter("alternateUrl", function(page, targetLang) {
+    return `/${targetLang}/${page.data.slug}/`;
+  });
+
+  return {
+    dir: {
+      input: "src",
+      output: "_site",
+      includes: "_includes",
+      data: "_data"
+    },
+    markdownTemplateEngine: "njk",
+    htmlTemplateEngine: "njk",
+    pathPrefix: process.env.PATH_PREFIX || "/"
+  };
+};
