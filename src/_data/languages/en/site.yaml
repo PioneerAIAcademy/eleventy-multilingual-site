@@ -1,0 +1,7 @@
+title: "Multilingual Documentation Site"
+description: "A sample multilingual documentation site built with Eleventy"
+copyright: "All rights reserved"
+footer:
+  aboutText: "About"
+  privacyText: "Privacy Policy"
+  termsText: "Terms of Service"

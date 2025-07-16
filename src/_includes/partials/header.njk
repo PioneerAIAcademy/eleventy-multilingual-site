@@ -1,13 +1,12 @@
-{% set headerCollection = collections['header_' + lang] %}
-{% set headerData = headerCollection[0] if headerCollection else {} %}
-{% set navItems = navigation[lang] %}
+{% set headerData = languages[lang].header %}
+{% set navItems = languages[lang].navigation.items %}
 
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="{{ ('/' + lang + '/') | url }}">{{ headerData.data.brandName }}</a>
+            <a class="navbar-brand" href="{{ ('/' + lang + '/') | url }}">{{ headerData.brandName }}</a>
             
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ headerData.data.mobileMenuLabel }}">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ headerData.mobileMenuLabel }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
             
@@ -20,7 +19,7 @@
                             {{ item.title }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown-{{ item.slug }}">
-                            <li><a class="dropdown-item" href="{{ ('/' + item.url) | url }}">{{ item.title }} {{ headerData.data.overviewLabel or "Overview" }}</a></li>
+                            <li><a class="dropdown-item" href="{{ ('/' + item.url) | url }}">{{ item.title }} {{ headerData.overviewLabel or "Overview" }}</a></li>
                             <li><hr class="dropdown-divider"></li>
                             {% for subitem in item.subnav %}
                             <li><a class="dropdown-item{% if page.url == subitem.url %} active{% endif %}" href="{{ ('/' + subitem.url) | url }}">{{ subitem.title }}</a></li>
@@ -35,22 +34,24 @@
                 
                 {# Search form #}
                 <form class="d-flex me-3" role="search">
-                    <input class="form-control me-2" type="search" placeholder="{{ headerData.data.searchPlaceholder }}" aria-label="Search">
+                    <input class="form-control me-2" type="search" placeholder="{{ headerData.searchPlaceholder }}" aria-label="Search">
                     <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
                 </form>
                 
                 {# Language switcher #}
                 <div class="dropdown">
                     <button class="btn btn-outline-light dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-globe"></i> {{ headerData.data.languageLabel }}
+                        <i class="bi bi-globe"></i> {{ headerData.languageLabel }}
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-                        {% for language in site.languages %}
+                        {% for language in config.languages.languages %}
+                        {% if language.enabled %}
                         <li>
                             <a class="dropdown-item{% if lang == language.code %} active{% endif %}" href="{{ ('/' + language.code + '/' + (slug + '/' if slug else '')) | url }}">
                                 {{ language.name }}
                             </a>
                         </li>
+                        {% endif %}
                         {% endfor %}
                     </ul>
                 </div>

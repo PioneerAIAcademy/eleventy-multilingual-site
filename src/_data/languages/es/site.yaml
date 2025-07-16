@@ -1,0 +1,7 @@
+title: "Sitio de Documentación Multilingüe"
+description: "Un sitio de documentación multilingüe de ejemplo construido con Eleventy"
+copyright: "Todos los derechos reservados"
+footer:
+  aboutText: "Acerca de"
+  privacyText: "Política de Privacidad"
+  termsText: "Términos de Servicio"

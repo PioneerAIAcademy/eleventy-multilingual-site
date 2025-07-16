@@ -29,14 +29,6 @@ module.exports = function(eleventyConfig) {
     return collectionApi.getFilteredByGlob("src/content/pages/es/**/*.md");
   });
 
-  // Header collections
-  eleventyConfig.addCollection("header_en", function(collectionApi) {
-    return collectionApi.getFilteredByGlob("src/content/header/en/*.md");
-  });
-
-  eleventyConfig.addCollection("header_es", function(collectionApi) {
-    return collectionApi.getFilteredByGlob("src/content/header/es/*.md");
-  });
 
   // Configure markdown-it to handle path prefixes
   const markdownIt = require("markdown-it");
