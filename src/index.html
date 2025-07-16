@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     <script>
+        // Get the base path from the current location
+        const pathSegments = window.location.pathname.split('/').filter(segment => segment);
+        let basePath = '';
+        
+        // If we're in a subdirectory (like /eleventy-multilingual-site/), detect it
+        if (pathSegments.length > 0 && !['en', 'es'].includes(pathSegments[0])) {
+            basePath = '/' + pathSegments[0];
+        }
+        
         // Get user's browser language
         const browserLang = navigator.language || navigator.userLanguage;
         
@@ -18,18 +27,18 @@
         const targetLang = supportedLangs.includes(langCode) ? langCode : 'en';
         
         // Redirect to the appropriate language homepage
-        window.location.replace(`/${targetLang}/`);
+        window.location.replace(basePath + `/${targetLang}/`);
     </script>
     <noscript>
-        <meta http-equiv="refresh" content="0; url=/en/">
+        <meta http-equiv="refresh" content="0; url=./en/">
     </noscript>
 </head>
 <body>
     <p>Detecting language...</p>
     <p>If you are not redirected, please choose your language:</p>
     <ul>
-        <li><a href="/en/">English</a></li>
-        <li><a href="/es/">Español</a></li>
+        <li><a href="./en/">English</a></li>
+        <li><a href="./es/">Español</a></li>
     </ul>
 </body>
 </html>

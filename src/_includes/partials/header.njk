@@ -5,7 +5,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="/{{ lang }}/">{{ headerData.data.brandName }}</a>
+            <a class="navbar-brand" href="{{ ('/' + lang + '/') | url }}">{{ headerData.data.brandName }}</a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="{{ headerData.data.mobileMenuLabel }}">
                 <span class="navbar-toggler-icon"></span>
@@ -20,14 +20,14 @@
                             {{ item.title }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown-{{ item.slug }}">
-                            <li><a class="dropdown-item" href="{{ item.url }}">{{ item.title }} {{ headerData.data.overviewLabel or "Overview" }}</a></li>
+                            <li><a class="dropdown-item" href="{{ ('/' + item.url) | url }}">{{ item.title }} {{ headerData.data.overviewLabel or "Overview" }}</a></li>
                             <li><hr class="dropdown-divider"></li>
                             {% for subitem in item.subnav %}
-                            <li><a class="dropdown-item{% if page.url == subitem.url %} active{% endif %}" href="{{ subitem.url }}">{{ subitem.title }}</a></li>
+                            <li><a class="dropdown-item{% if page.url == subitem.url %} active{% endif %}" href="{{ ('/' + subitem.url) | url }}">{{ subitem.title }}</a></li>
                             {% endfor %}
                         </ul>
                         {% else %}
-                        <a class="nav-link{% if page.url == item.url %} active{% endif %}" href="{{ item.url }}">{{ item.title }}</a>
+                        <a class="nav-link{% if page.url == item.url %} active{% endif %}" href="{{ ('/' + item.url) | url }}">{{ item.title }}</a>
                         {% endif %}
                     </li>
                     {% endfor %}
@@ -47,7 +47,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
                         {% for language in site.languages %}
                         <li>
-                            <a class="dropdown-item{% if lang == language.code %} active{% endif %}" href="/{{ language.code }}/{% if slug %}{{ slug }}/{% endif %}">
+                            <a class="dropdown-item{% if lang == language.code %} active{% endif %}" href="{{ ('/' + language.code + '/' + (slug + '/' if slug else '')) | url }}">
                                 {{ language.name }}
                             </a>
                         </li>

@@ -8,26 +8,40 @@
     <script>
         // Get the current path
         const path = window.location.pathname;
+        const pathSegments = path.split('/').filter(segment => segment);
         
-        // Extract language code from path if present
-        const pathParts = path.split('/').filter(part => part);
-        const possibleLang = pathParts[0];
-        const supportedLangs = ['en', 'es'];
+        // Detect base path
+        let basePath = '';
+        let currentLang = null;
+        let pathIndex = 0;
+        
+        // Check if first segment is not a language code (meaning it's a base path)
+        if (pathSegments.length > 0 && !['en', 'es'].includes(pathSegments[0])) {
+            basePath = '/' + pathSegments[0];
+            pathIndex = 1;
+        }
+        
+        // Check if we can detect language from URL
+        if (pathSegments[pathIndex] && ['en', 'es'].includes(pathSegments[pathIndex])) {
+            currentLang = pathSegments[pathIndex];
+        }
         
         // Determine target language
         let targetLang;
-        if (supportedLangs.includes(possibleLang)) {
-            targetLang = possibleLang;
+        if (currentLang) {
+            targetLang = currentLang;
         } else {
             // Use browser language or default to English
             const browserLang = navigator.language || navigator.userLanguage;
             const langCode = browserLang.split('-')[0].toLowerCase();
+            const supportedLangs = ['en', 'es'];
             targetLang = supportedLangs.includes(langCode) ? langCode : 'en';
         }
         
         // Redirect to language-specific 404 page if not already there
-        if (!path.startsWith(`/${targetLang}/404`)) {
-            window.location.replace(`/${targetLang}/404/`);
+        const target404 = basePath + `/${targetLang}/404/`;
+        if (window.location.pathname !== target404) {
+            window.location.replace(target404);
         }
     </script>
 </head>
@@ -40,8 +54,8 @@
                 <p class="lead">The page you're looking for doesn't exist.</p>
                 <p>Choose your language:</p>
                 <div class="mt-4">
-                    <a href="/en/" class="btn btn-primary me-2">English</a>
-                    <a href="/es/" class="btn btn-primary">Español</a>
+                    <a href="./en/" class="btn btn-primary me-2">English</a>
+                    <a href="./es/" class="btn btn-primary">Español</a>
                 </div>
             </div>
         </div>

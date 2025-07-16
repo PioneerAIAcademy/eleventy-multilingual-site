@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6 text-md-end">
                 <p class="text-muted mb-0">
-                    <a href="/{{ lang }}/about/" class="text-decoration-none">
+                    <a href="{{ ('/' + lang + '/about/') | url }}" class="text-decoration-none">
                         {% if lang == 'en' %}About{% else %}Acerca de{% endif %}
                     </a>
                     <span class="mx-2">|</span>
