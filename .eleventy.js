@@ -24,20 +24,6 @@ module.exports = function(eleventyConfig) {
     return collectionApi.getFilteredByGlob("src/content/header/es/*.md");
   });
 
-  // Universal filter to get page by slug in a specific language
-  eleventyConfig.addFilter("getPageBySlug", function(collection, slug, lang) {
-    return collection.find(page => page.data.slug === slug && page.data.lang === lang);
-  });
-
-  // Get localized URL
-  eleventyConfig.addFilter("localizedUrl", function(slug, lang) {
-    return `/${lang}/${slug}/`;
-  });
-
-  // Get alternate language URL
-  eleventyConfig.addFilter("alternateUrl", function(page, targetLang) {
-    return `/${targetLang}/${page.data.slug}/`;
-  });
 
   return {
     dir: {

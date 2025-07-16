@@ -47,7 +47,7 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
                         {% for language in site.languages %}
                         <li>
-                            <a class="dropdown-item{% if lang == language.code %} active{% endif %}" href="{{ slug | alternateUrl(language.code) }}">
+                            <a class="dropdown-item{% if lang == language.code %} active{% endif %}" href="/{{ language.code }}/{% if slug %}{{ slug }}/{% endif %}">
                                 {{ language.name }}
                             </a>
                         </li>
