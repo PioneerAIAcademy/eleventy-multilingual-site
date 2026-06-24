@@ -5,3 +5,4 @@ _site/
 .cache/
 *.log
 .idea/
+.vscode/
